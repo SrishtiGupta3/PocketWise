@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Login ·PocketWise Student Expense Tracker</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="auth">
+      <aside class="auth-side">
+        <div class="logo"><span class="logo-mark">P</span> PocketWise</div>
+        <div>
+          <h1>Take control of your student budget.</h1>
+          <p>
+            Track every rupee, set smart budgets and see exactly where your
+            money goes — built for college life.
+          </p>
+        </div>
+        <div class="auth-stats">
+          <div><b>10k+</b>students</div>
+          <div><b>₹2.4Cr</b>tracked</div>
+          <div><b>32%</b>avg. savings</div>
+        </div>
+      </aside>
+      <main class="auth-main">
+        <div class="auth-card">
+          <h2>Welcome back 👋</h2>
+          <p class="sub">
+            Log in to your account. Demo: <b>demo@student.com</b> /
+            <b>demo123</b>
+          </p>
+          <form id="loginForm" novalidate>
+            <div class="field">
+              <label>Email</label
+              ><input
+                name="email"
+                type="email"
+                placeholder="you@gmail.com"
+                value="demo@student.com"
+              />
+            </div>
+            <div class="field">
+              <label>Password</label
+              ><input
+                name="password"
+                type="password"
+                placeholder="••••••"
+                value="demo123"
+              />
+            </div>
+            <button class="btn btn-primary btn-block">Log in</button>
+          </form>
+          <p class="alt">
+            New here? <a href="register.html">Create an account</a>
+          </p>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabaseClient.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/auth.js"></script>
+  </body>
+</html>

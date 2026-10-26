@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard · PocketWise</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="sidebar" id="sidebar">
+        <div class="logo"><span class="logo-mark">P</span> PocketWise</div>
+        <nav class="nav">
+          <a href="#dashboard" data-page="dashboard"
+            ><span class="ico">▦</span>Dashboard</a
+          >
+          <a href="#expenses" data-page="expenses"
+            ><span class="ico">↓</span>Expenses</a
+          >
+          <a href="#income" data-page="income"
+            ><span class="ico">↑</span>Income</a
+          >
+          <a href="#budget" data-page="budget"
+            ><span class="ico">◎</span>Budget</a
+          >
+          <a href="#analytics" data-page="analytics"
+            ><span class="ico">▤</span>Analytics</a
+          >
+          <a href="#profile" data-page="profile"
+            ><span class="ico">☺</span>Profile</a
+          >
+        </nav>
+        <div class="nav logout">
+          <a href="#" id="logoutBtn"><span class="ico">⎋</span>Log out</a>
+        </div>
+      </aside>
+      <div class="overlay" id="overlay"></div>
+
+      <div class="main">
+        <header class="topbar">
+          <div style="display: flex; align-items: center">
+            <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+              ☰
+            </button>
+            <div>
+              <h1 id="pageTitle">Dashboard</h1>
+              <div class="date" id="today"></div>
+            </div>
+          </div>
+          <a class="user-chip" href="#profile"
+            ><div class="uname" style="text-align: right">
+              <b id="hName"></b><small id="hCollege"></small>
+            </div>
+            <div class="avatar" id="hAvatar"></div
+          ></a>
+        </header>
+
+        <div class="content">
+          <!-- DASHBOARD -->
+          <section class="page" id="page-dashboard">
+            <div class="stats">
+              <div class="card stat hero">
+                <div class="si">₹</div>
+                <div>
+                  <div class="lbl">Total Balance</div>
+                  <div class="val" id="dBalance"></div>
+                </div>
+              </div>
+              <div class="card stat">
+                <div class="si g">↑</div>
+                <div>
+                  <div class="lbl">Total Income</div>
+                  <div class="val" id="dIncome"></div>
+                </div>
+              </div>
+              <div class="card stat">
+                <div class="si r">↓</div>
+                <div>
+                  <div class="lbl">Total Expenses</div>
+                  <div class="val" id="dExpense"></div>
+                </div>
+              </div>
+              <div class="card stat">
+                <div class="si o">◎</div>
+                <div>
+                  <div class="lbl">Monthly Budget</div>
+                  <div class="val" id="dBudget"></div>
+                </div>
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="card">
+                <h3>Monthly Expenses</h3>
+                <div class="chart-box"><canvas id="cMonthly"></canvas></div>
+              </div>
+              <div class="card">
+                <h3>By Category</h3>
+                <div class="chart-box"><canvas id="cCat"></canvas></div>
+              </div>
+            </div>
+            <div class="grid-eq">
+              <div class="card">
+                <h3>
+                  Recent Transactions
+                  <a href="#expenses" style="font-size: 13px">View all</a>
+                </h3>
+                <div id="recent"></div>
+              </div>
+              <div>
+                <div class="card" style="margin-bottom: 18px">
+                  <h3>
+                    Budget Progress
+                    <span style="font-size: 12px; color: var(--muted)"
+                      >this month</span
+                    >
+                  </h3>
+                  <div id="dProgress"></div>
+                </div>
+                <div class="card">
+                  <h3>Financial Insights</h3>
+                  <div id="insights"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- EXPENSES -->
+          <section class="page" id="page-expenses">
+            <div class="grid-side">
+              <div class="card">
+                <h3 id="expFormTitle">Add Expense</h3>
+                <form id="expForm" novalidate>
+                  <input type="hidden" name="id" />
+                  <div class="field">
+                    <label>Title</label
+                    ><input name="title" placeholder="e.g. Lunch at canteen" />
+                  </div>
+                  <div class="row2">
+                    <div class="field">
+                      <label>Amount (₹)</label
+                      ><input name="amount" type="number" step="0.01" />
+                    </div>
+                    <div class="field">
+                      <label>Date</label><input name="date" type="date" />
+                    </div>
+                  </div>
+                  <div class="row2">
+                    <div class="field">
+                      <label>Category</label
+                      ><select name="category" class="exp-cats"></select>
+                    </div>
+                    <div class="field">
+                      <label>Payment</label
+                      ><select name="method">
+                        <option>UPI</option>
+                        <option>Cash</option>
+                        <option>Card</option>
+                        <option>Net Banking</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label>Description</label
+                    ><textarea
+                      name="description"
+                      rows="2"
+                      placeholder="Optional"
+                    ></textarea>
+                  </div>
+                  <div style="display: flex; gap: 10px">
+                    <button class="btn btn-primary" style="flex: 1">
+                      Save expense</button
+                    ><button
+                      type="button"
+                      class="btn btn-ghost"
+                      id="expCancel"
+                      hidden
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <div class="card">
+                <h3>
+                  All Expenses
+                  <span
+                    id="expTotal"
+                    class="amt-neg"
+                    style="font-size: 14px"
+                  ></span>
+                </h3>
+                <div class="toolbar">
+                  <input
+                    class="input"
+                    id="expSearch"
+                    placeholder="Search expenses…"
+                  />
+                  <select class="input exp-cats-filter" id="expFilter"></select>
+                  <select class="input" id="expSort">
+                    <option value="date-desc">Newest first</option>
+                    <option value="date-asc">Oldest first</option>
+                    <option value="amount-desc">Amount: high → low</option>
+                    <option value="amount-asc">Amount: low → high</option>
+                  </select>
+                </div>
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Title</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Method</th>
+                        <th>Amount</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody id="expTable"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- INCOME -->
+          <section class="page" id="page-income">
+            <div class="grid-side">
+              <div class="card">
+                <h3 id="incFormTitle">Add Income</h3>
+                <form id="incForm" novalidate>
+                  <input type="hidden" name="id" />
+                  <div class="field">
+                    <label>Source</label
+                    ><input
+                      name="source"
+                      placeholder="e.g. Monthly allowance"
+                    />
+                  </div>
+                  <div class="row2">
+                    <div class="field">
+                      <label>Amount (₹)</label
+                      ><input name="amount" type="number" step="0.01" />
+                    </div>
+                    <div class="field">
+                      <label>Date</label><input name="date" type="date" />
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label>Category</label
+                    ><select name="category" class="inc-cats"></select>
+                  </div>
+                  <div class="field">
+                    <label>Description</label
+                    ><textarea
+                      name="description"
+                      rows="2"
+                      placeholder="Optional"
+                    ></textarea>
+                  </div>
+                  <div style="display: flex; gap: 10px">
+                    <button class="btn btn-primary" style="flex: 1">
+                      Save income</button
+                    ><button
+                      type="button"
+                      class="btn btn-ghost"
+                      id="incCancel"
+                      hidden
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <div class="card">
+                <h3>
+                  Income History
+                  <span
+                    id="incTotal"
+                    class="amt-pos"
+                    style="font-size: 14px"
+                  ></span>
+                </h3>
+                <div class="toolbar">
+                  <input
+                    class="input"
+                    id="incSearch"
+                    placeholder="Search income…"
+                  />
+                  <select class="input" id="incFilter"></select>
+                </div>
+                <div class="table-wrap">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Source</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody id="incTable"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- BUDGET -->
+          <section class="page" id="page-budget">
+            <div class="grid-side">
+              <div class="card">
+                <h3>Set Budgets</h3>
+                <form id="budgetForm" novalidate>
+                  <div class="field">
+                    <label>Monthly budget (₹)</label
+                    ><input name="monthly" type="number" />
+                  </div>
+                  <div id="catBudgetFields"></div>
+                  <button class="btn btn-primary btn-block">
+                    Save budgets
+                  </button>
+                </form>
+              </div>
+              <div>
+                <div class="card" style="margin-bottom: 18px">
+                  <h3>This Month Overview</h3>
+                  <div id="bAlerts"></div>
+                  <div id="bOverall"></div>
+                </div>
+                <div class="budget-grid" id="bCards"></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ANALYTICS -->
+          <section class="page" id="page-analytics">
+            <div class="stats">
+              <div class="card stat">
+                <div class="si r">★</div>
+                <div>
+                  <div class="lbl">Top Category</div>
+                  <div class="val" id="aTop"></div>
+                </div>
+              </div>
+              <div class="card stat">
+                <div class="si o">≈</div>
+                <div>
+                  <div class="lbl">Avg. Monthly Spend</div>
+                  <div class="val" id="aAvg"></div>
+                </div>
+              </div>
+              <div class="card stat">
+                <div class="si g">#</div>
+                <div>
+                  <div class="lbl">Total Transactions</div>
+                  <div class="val" id="aCount"></div>
+                </div>
+              </div>
+              <div class="card stat">
+                <div class="si d">⇡</div>
+                <div>
+                  <div class="lbl">Highest Expense</div>
+                  <div class="val" id="aHigh"></div>
+                </div>
+              </div>
+            </div>
+            <div class="grid-eq">
+              <div class="card">
+                <h3>Monthly Spending</h3>
+                <div class="chart-box"><canvas id="aMonthly"></canvas></div>
+              </div>
+              <div class="card">
+                <h3>Expense Categories</h3>
+                <div class="chart-box"><canvas id="aCat"></canvas></div>
+              </div>
+            </div>
+            <div class="grid-2">
+              <div class="card">
+                <h3>Income vs Expenses</h3>
+                <div class="chart-box"><canvas id="aIvE"></canvas></div>
+              </div>
+              <div class="card">
+                <h3>Savings</h3>
+                <div class="stat" style="margin-bottom: 16px">
+                  <div class="si g">₹</div>
+                  <div>
+                    <div class="lbl">Total saved</div>
+                    <div class="val" id="aSave"></div>
+                  </div>
+                </div>
+                <div class="prog">
+                  <div class="prog-head">
+                    Savings rate <span id="aRate"></span>
+                  </div>
+                  <div class="bar"><i id="aRateBar"></i></div>
+                </div>
+                <div id="aSaveMonths"></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- PROFILE -->
+          <section class="page" id="page-profile">
+            <div class="grid-side">
+              <div class="card">
+                <div class="profile-head">
+                  <div class="avatar" id="pAvatar"></div>
+                  <div>
+                    <h2 id="pName"></h2>
+                    <div style="color: var(--muted)" id="pEmail"></div>
+                  </div>
+                </div>
+                <div id="pInfo"></div>
+              </div>
+              <div class="card">
+                <h3>Edit Profile</h3>
+                <form id="profileForm" novalidate>
+                  <div class="row2">
+                    <div class="field">
+                      <label>Full name</label><input name="name" />
+                    </div>
+                    <div class="field">
+                      <label>Phone</label><input name="phone" />
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label>College</label><input name="college" />
+                  </div>
+                  <div class="row2">
+                    <div class="field">
+                      <label>Course</label><input name="course" />
+                    </div>
+                    <div class="field">
+                      <label>Year</label><input name="year" />
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label>City</label><input name="city" />
+                  </div>
+                  <div style="display: flex; gap: 10px; flex-wrap: wrap">
+                    <button class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-ghost" id="resetData">
+                      Reset sample data
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="confirmModal">
+      <div class="modal-box">
+        <h3 id="mTitle">Delete item?</h3>
+        <p id="mText">This action cannot be undone.</p>
+        <div class="modal-actions">
+          <button class="btn btn-ghost" id="mCancel">Cancel</button
+          ><button class="btn btn-danger" id="mOk">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabaseClient.js"></script>
+
+    <script src="js/store.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

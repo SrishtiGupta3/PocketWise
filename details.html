@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Student Details · PocketWise</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="auth">
+      <aside class="auth-side">
+        <div class="logo"><span class="logo-mark">P</span> PocketWise</div>
+        <div>
+          <h1>Tell us about you.</h1>
+          <p>
+            We use this to personalise your dashboard and set a sensible
+            starting budget.
+          </p>
+        </div>
+        <div></div>
+      </aside>
+      <main class="auth-main">
+        <div class="auth-card">
+          <h2>Student details</h2>
+          <p class="sub">Step 2 of 2 · Almost done</p>
+          <form id="detailsForm" novalidate>
+            <div class="field">
+              <label>College / University</label
+              ><input
+                name="college"
+                placeholder="GL Bajaj Insitute of Technology"
+              />
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label>Course</label
+                ><input name="course" placeholder="B.Tech CSE" />
+              </div>
+              <div class="field">
+                <label>Year</label
+                ><select name="year">
+                  <option value="">Select</option>
+                  <option>1st Year</option>
+                  <option>2nd Year</option>
+                  <option>3rd Year</option>
+                  <option>4th Year</option>
+                  <option>Postgraduate</option>
+                </select>
+              </div>
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label>Phone</label
+                ><input name="phone" placeholder="10 digits" />
+              </div>
+              <div class="field">
+                <label>City</label
+                ><input name="city" placeholder="Greater Noida" />
+              </div>
+            </div>
+            <div class="field">
+              <label>Monthly budget (₹)</label
+              ><input name="budget" type="number" value="3000" />
+            </div>
+            <button class="btn btn-primary btn-block">Go to dashboard</button>
+          </form>
+        </div>
+      </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabaseClient.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/auth.js"></script>
+  </body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Register · PocketWise</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="auth">
+      <aside class="auth-side">
+        <div class="logo"><span class="logo-mark">P</span> PocketWise</div>
+        <div>
+          <h1>Start saving smarter today.</h1>
+          <p>
+            Create a free account in seconds. Your data stays on your device.
+          </p>
+        </div>
+        <div class="auth-stats">
+          <div><b>Free</b>forever</div>
+          <div><b>0</b>ads</div>
+        </div>
+      </aside>
+      <main class="auth-main">
+        <div class="auth-card">
+          <h2>Create account</h2>
+          <p class="sub">Step 1 of 2 · Account details</p>
+          <form id="registerForm" novalidate>
+            <div class="field">
+              <label>Full name</label
+              ><input name="name" placeholder="Priya Verma" />
+            </div>
+            <div class="field">
+              <label>Email</label
+              ><input name="email" type="email" placeholder="you@gmail.com" />
+            </div>
+            <div class="row2">
+              <div class="field">
+                <label>Password</label><input name="password" type="password" />
+              </div>
+              <div class="field">
+                <label>Confirm Password</label
+                ><input name="confirm" type="password" />
+              </div>
+            </div>
+            <button class="btn btn-primary btn-block">Continue</button>
+          </form>
+          <p class="alt">
+            Already have an account? <a href="index.html">Log in</a>
+          </p>
+        </div>
+      </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/supabaseClient.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/auth.js"></script>
+  </body>
+</html>
